@@ -250,14 +250,25 @@ class QuestionsViewSet(viewsets.ModelViewSet):
 
         return Response(self.get_serializer(questions, many=True).data)
 
-    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated], throttle_classes=[UserRateThrottle])
+    @action(
+        detail=False,
+        methods=['get'],
+        permission_classes=[IsAuthenticated],
+        throttle_classes=[UserRateThrottle],
+        pagination_class=NewestQuestionsSetPagination,
+    )
     def downvotes(self, request) -> HttpResponse:
         user = request.user
         questions = self.get_queryset().filter(
                 votequestion__up=False,
                 votequestion__user=user
             )
-        return Response(self.get_serializer(questions, many=True).data)
+
+        page = self.paginate_queryset(questions)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
 
     @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated], throttle_classes=[UserRateThrottle])
     def downvote(self, request, pk=None) -> HttpResponse:
