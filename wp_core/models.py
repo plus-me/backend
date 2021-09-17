@@ -106,11 +106,9 @@ class Answer(models.Model):
         return "%s: %s -> %s" % (self.pk, self.text, self.question.pk)
 
 def on_answer_save(sender, instance, **kwargs):
-    print('oh hai');
-    print(kwargs);
     if kwargs['created']: # just on creation (not update)
         devices = FCMDevice.objects.all()
-        devices.send_message(Message(notification=Notification(title="Zu einer deiner Fragen gibt es eine neue Antwort", body="Neue Antwort", image="url")))
+        devices.send_message(Message(notification=Notification(title="Zu einer deiner Fragen gibt es eine neue Antwort", body="Neue Antwort")))
 
 post_save.connect(on_answer_save, sender=Answer)
 
