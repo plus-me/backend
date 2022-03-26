@@ -28,4 +28,4 @@ jobs:
         with:
           file: Dockerfile.prod
           push: true
-          tags: ghcr.io/plusme/backend:latest
+          tags: ghcr.io/plus-me/backend:latest
