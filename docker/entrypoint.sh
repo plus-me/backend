@@ -7,7 +7,8 @@ set -o nounset
 
 postgres_ready() {
     python << END
-import sysfrom psycopg2 import connect
+import sys
+from psycopg2 import connect
 from psycopg2.errors import OperationalErrortry:
     connect(
         dbname="${DJANGO_POSTGRES_DATABASE}",
