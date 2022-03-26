@@ -19,8 +19,7 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt \
 WORKDIR /app
 USER app_user:app_user
 COPY --chown=app_user:app_user . .
-RUN chmod +x docker/*.sh \
-    && cp settings_prod.py settings.py
+RUN chmod +x docker/*.sh
 
 ENTRYPOINT [ "docker/entrypoint.sh" ]
 
