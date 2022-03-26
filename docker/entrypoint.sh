@@ -1,4 +1,4 @@
-w#!/bin/bash
+#!/bin/bash
 #
 ## entrypoint.sh file of Dockerfile# Section 1- Bash options
 set -o errexit
