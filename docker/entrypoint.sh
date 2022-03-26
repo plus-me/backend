@@ -9,7 +9,8 @@ postgres_ready() {
     python << END
 import sys
 from psycopg2 import connect
-from psycopg2.errors import OperationalErrortry:
+from psycopg2.errors import OperationalError
+try:
     connect(
         dbname="${DJANGO_POSTGRES_DATABASE}",
         user="${DJANGO_POSTGRES_USER}",
@@ -24,8 +25,10 @@ END
 
 redis_ready() {
     python << END
-import sysfrom redis import Redis
-from redis import RedisErrortry:
+import sys
+from redis import Redis
+from redis import RedisError
+try:
     redis = Redis.from_url("${CELERY_BROKER_URL}", db=0)
     redis.ping()
 except RedisError:
