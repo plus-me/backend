@@ -49,5 +49,5 @@ done
 # >&2 echo "Redis is available"# Section 3- Idempotent Django commands
 
 python manage.py collectstatic --noinput
-python manage.py makemigrations
-python manage.py migrateexec "$@"
+python manage.py migrate
+exec "$@"
