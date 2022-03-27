@@ -24,3 +24,5 @@ RUN chmod +x docker/*.sh
 ENTRYPOINT [ "docker/entrypoint.sh" ]
 
 CMD [ "docker/start.sh", "server" ]
+
+EXPOSE 8000
