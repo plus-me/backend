@@ -25,6 +25,7 @@ from wp_news.views import NewsEntryViewSet
 from wp_newsletter.views import NewsLetterAddressViewSet
 from wp_party.views import PartyViewSet
 from fcm_django.api.rest_framework import FCMDeviceAuthorizedViewSet
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 router = DefaultRouter()
 router.register(r'Tags', TagViewSet, 'tag')
@@ -41,6 +42,8 @@ urlpatterns = [
     url(r'^v1/', include((router.urls, 'wepublic'), namespace='v1')),
     url(r'^v2/', include((router.urls, 'wepublic'), namespace='v2'))
 ]
+
+urlpatterns += staticfiles_urlpatterns()
 
 
 if settings.DEBUG:
