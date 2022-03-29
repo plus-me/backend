@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'wp_newsletter',
     'wp_party',
     'post_office',
-    'fcm_django'
+    'fcm_django',
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [
@@ -235,5 +236,11 @@ LOGGING = {
     },
 }
 
+
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER', 'redis://redis:6379/0')
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', 'django-db')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 
 from wepublic_backend.settings_local import *
