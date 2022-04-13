@@ -10,26 +10,14 @@ fi
 PROCESS_TYPE=$1
 
 if [ "$PROCESS_TYPE" = "server" ]; then
-    if [ "$DJANGO_DEBUG" = "true" ]; then
-        gunicorn \
-            --reload \
-            --bind 0.0.0.0:8000 \
-            --workers 2 \
-            --worker-class sync \
-            --log-level DEBUG \
-            --access-logfile "-" \
-            --error-logfile "-" \
+    gunicorn \
+        --bind 0.0.0.0:8000 \
+        --workers 2 \
+        --worker-class sync \
+        --log-level DEBUG \
+        --capture-output \
+        --error-logfile "-" \
             wepublic_backend.wsgi
-    else
-        gunicorn \
-            --bind 0.0.0.0:8000 \
-            --workers 2 \
-            --worker-class sync \
-            --log-level DEBUG \
-            --access-logfile "-" \
-            --error-logfile "-" \
-            wepublic_backend.wsgi
-    fi
 elif [ "$PROCESS_TYPE" = "beat" ]; then
     celery \
         --app wepublic_backend.celery_app \
