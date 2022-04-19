@@ -1,4 +1,4 @@
-{% include "header.html" with title="Vielen Danke für deine Anmeldung" %}
+{% include "header_mail.html" with title="Vielen Danke für deine Anmeldung" %}
 
 <div class="wrapper">
     <div class="section">
@@ -6,10 +6,13 @@
             <h1>Vielen Dank für deine Anmeldung bei +me!</h1>
             <p>
                 Bitte klicke auf den folgenden Link, um deine Anmeldung zu
-                bestätigen:<br/>
-                <a id="best-link" href="{{ link }}">Hier geht's lang!</a><br/>
-                Bei Fragen oder Problemen melde dich einfach bei uns unter<br/>
-                <a id="mail-link" href="mailto:{{ support }}">{{ support }}</a><br/>
+                bestätigen: <a id="best-link" href="{{ link }}">Hier geht's lang!</a>
+            </p>
+            <p>
+                Bei Fragen oder Problemen melde dich einfach bei uns unter
+                <a id="mail-link" href="mailto:{{ support }}">{{ support }}</a>
+            </p>
+            <p>
                 <span id="team">Dein +me-Team</span>
             </p>
 
@@ -17,4 +20,4 @@
     </div>
 </div>
 
-{% include "footer.html" %}
+{% include "footer_mail.html" %}
