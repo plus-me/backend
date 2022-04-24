@@ -11,6 +11,9 @@ from wp_core.models import (
 from django.db.models import Sum, When, Case, IntegerField
 from django.db.models.functions import Coalesce
 import logging
+from firebase_admin.messaging import Message,Notification
+from fcm_django.models import FCMDevice
+
 logger = logging.getLogger(__name__)
 
 
@@ -18,6 +21,8 @@ def close_questions(modeladmin, request, queryset):
     logger.info("closing {} questions...".format(queryset.count()))
     for question in queryset:
         question.close()
+    devices = FCMDevice.objects.all()
+    devices.send_message(Message(notification=Notification(title="Zu einer deiner Fragen gibt es eine neue Antwort", body="Neue Antwort")))
 
 
 close_questions.short_description = "Close the selected Questions for Voting"

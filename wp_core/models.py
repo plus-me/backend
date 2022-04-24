@@ -1,4 +1,3 @@
-from django.db.models.signals import post_save
 from django.db import models
 from users.models import User
 from wepublic_backend.settings import WP_DEFAULT_STAFF_USER
@@ -6,8 +5,6 @@ from wp_party.models import Party
 from django.utils import timezone
 from django.core import exceptions
 import logging
-from firebase_admin.messaging import Message,Notification
-from fcm_django.models import FCMDevice
 
 logger = logging.getLogger(__name__)
 
@@ -104,13 +101,6 @@ class Answer(models.Model):
 
     def __str__(self):
         return "%s: %s -> %s" % (self.pk, self.text, self.question.pk)
-
-def on_answer_save(sender, instance, **kwargs):
-    if kwargs['created']: # just on creation (not update)
-        devices = FCMDevice.objects.all()
-        devices.send_message(Message(notification=Notification(title="Zu einer deiner Fragen gibt es eine neue Antwort", body="Neue Antwort")))
-
-post_save.connect(on_answer_save, sender=Answer)
 
 class VoteAnswer(models.Model):
     class Meta:
